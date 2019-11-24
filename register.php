@@ -25,18 +25,18 @@ if($_POST['btn']=="submit-register-form"){
     if($_POST['password']==$_POST['confirm-password']){
       include 'connect.php';
       $username = strtolower($_POST['username']);
-      $query = mysqli_query($conn, "SELECT username
+      $query = mysql_query("SELECT username
                             FROM users
                             WHERE username='$username'
                             ");
-      mysqli_close($conn);
-      if(!(mysqli_num_rows($query)>=1)){
+      mysql_close($conn);
+      if(!(mysql_num_rows($query)>=1)){
           $password = md5($_POST['password']);
           include 'connect.php';
-          mysqli_query($conn,"INSERT INTO users(username, password)
+          mysql_query("INSERT INTO users(username, password)
                        VALUES ('$username', '$password')
                       ");
-          mysqli_close($conn);
+          mysql_close($conn);
           echo "<div class='alert alert-success'>Your account has been created!</div>";
           echo "<a href='.' style='width:300px;' class='btn btn-info'>Go Home</a>";
           echo "</form>";
