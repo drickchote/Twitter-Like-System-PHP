@@ -8,20 +8,20 @@ if($user_id){
 		$tweet = htmlentities($_POST['tweet']);
 		$timestamp = time();
 		include 'connect.php';
-		$query = mysql_query("SELECT username
+		$query = mysqli_query($conn,"SELECT username
 					 		  FROM users 
 				     		  WHERE id ='$user_id'
 				    		");
-		$row = mysql_fetch_assoc($query);
+		$row = mysqli_fetch_assoc($query);
 		$username = $row['username'];
-		mysql_query("INSERT INTO tweets(username, user_id, tweet, timestamp) 
+		mysqli_query($conn,"INSERT INTO tweets(username, user_id, tweet, timestamp) 
 				     VALUES ('$username', '$user_id', '$tweet', $timestamp)
 				    ");
-		mysql_query("UPDATE users
+		mysqli_query($conn,"UPDATE users
 					 SET tweets = tweets + 1
 					 WHERE id='$user_id'
 					");
-		mysql_close($conn);
+		mysqli_close($conn);
 		header("Location: .");
 	}
 }
